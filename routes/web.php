@@ -58,6 +58,7 @@ Route::group(['middleware' => ['role:0']], function () {
     Route::put('/donor/profile/update/{id}', [DonorController::class,'updateProfile'])->name('donor.updateProfile');
     Route::get('/donor/donation/form/{id}', [DonorController::class,'formDonate'])->name('donor.formDonate');
     Route::post('/donor/donation/donate', [DonorController::class,'donate'])->name('donor.donate');
+    Route::get('/donor/activity/detail/{id}', [DonorController::class,'detail'])->name('activity.detail');
 });
 
 //Raiser

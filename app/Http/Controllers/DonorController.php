@@ -36,6 +36,12 @@ class DonorController extends Controller
         return view('donor.profileDonor', ['donor' => $donor]);
     }
 
+    public function detail($id)
+    {
+        $activity = Activity::findOrFail($id);
+        return view('donor.detailActivityDonor', ['activity' => $activity]);
+    }
+
     public function editProfile($id)
     {
         $donor = Donor::findOrFail($id);
