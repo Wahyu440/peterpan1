@@ -131,7 +131,7 @@
                             Rp{{ number_format($item->target, 0, ',', '.') }}</p>
                     </div>
                     <div class="px-2 pt-4 pb-2 grid grid-cols-2 gap-5">
-                        <a href="#"
+                        <a href="/donor/donation/form/{{$item->id}}"
                             class="flex items-center p-2 text-white rounded-lg hover:bg-gradient-to-l from-violet-500 to-violet-800 hover:text-white"
                             style="background: linear-gradient(to left, #ee7724, #d8363a)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
