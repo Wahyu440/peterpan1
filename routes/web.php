@@ -56,6 +56,8 @@ Route::group(['middleware' => ['role:0']], function () {
     Route::get('/donor/profile', [DonorController::class,'profile'])->name('donor.profile');
     Route::get('/donor/profile/edit/{id}', [DonorController::class,'editProfile'])->name('donor.editProfile');
     Route::put('/donor/profile/update/{id}', [DonorController::class,'updateProfile'])->name('donor.updateProfile');
+
+    Route::get('/donor/activity/detail/{id}', [DonorController::class,'detail'])->name('activity.detail');
 });
 
 //Raiser

@@ -28,6 +28,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Navigation -->
+
         <div class="nav top-0 left-0 z-40 w-40 h-screen transition-transform -translate-x-full sm:translate-x-0">
             <div class="h-full px-3 py-4 overflow-y-auto bg-gray-100">
                 <ul class="space-y-2 font-medium">
@@ -108,13 +111,15 @@
                 @foreach ($activity as $item)
                 <div class="rounded overflow-hidden shadow-lg pt-2 bg-[length:200px_100px] w-96">
                     <div class="bg-gradient-to-l from-violet-500 to-violet-800 py-1 px-2 flex-row-reverse flex">
-                        <svg class="h-8 w-8 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <circle cx="5" cy="12" r="1" />
-                            <circle cx="12" cy="12" r="1" />
-                            <circle cx="19" cy="12" r="1" />
-                        </svg>
+                        <a href="/donor/activity/detail/{{$item->id}}">
+                            <svg class="h-8 w-8 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <circle cx="5" cy="12" r="1" />
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="19" cy="12" r="1" />
+                            </svg>
+                        </a>
                     </div>
                     <div class="px-6 py-4 space-y-1 text-center">
                         <p class="font-bold text-xl mb-2"
