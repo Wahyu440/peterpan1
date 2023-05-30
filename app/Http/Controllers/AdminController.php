@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Donor;
 use App\Models\Raiser;
+use App\Models\User;
 use DB;
 
 class AdminController extends Controller
@@ -36,12 +38,18 @@ class AdminController extends Controller
         ]);
 
         $donors = new Donor;
+        $users = new User;
         
         $donors->username_donor = $request->UsernameDonor;
         $donors->password_donor = $request->PasswordDonor;
         $donors->name_donor = $request->NameDonor;
         $donors->email_donor = $request->EmailDonor;
 
+        $users->username = $request->UsernameDonor;
+        $users->password = Hash::make($request->PasswordDonor);
+        $users->name = $request->NameDonor;
+
+        $users->save();
         $donors->save();
         $donor = Donor::all();
         return redirect()->route('donor.list', ['donor' => $donor]);
@@ -71,7 +79,9 @@ class AdminController extends Controller
     public function delete($id)
     {
         $donors = Donor::findOrFail($id);
+        $users = User::where('username', '=', $donors->username_donor)->first();
         $donors->delete();
+        $users->delete();
         $donor = Donor::all();
         return redirect()->route('donor.list', ['donor' => $donor]);
     }
@@ -100,11 +110,19 @@ class AdminController extends Controller
         ]);
 
         $raisers = new Raiser;
+        $users = new User;
         
         $raisers->username_pic = $request->UsernameRaiser;
         $raisers->password_pic = $request->PasswordRaiser;
         $raisers->name_pic = $request->NameRaiser;
         $raisers->no_telp = $request->noTelp;
+
+        $users->username = $request->UsernameRaiser;
+        $users->password = Hash::make($request->PasswordRaiser);
+        $users->name = $request->NameRaiser;
+        $users->role = 1;
+
+        $users->save();
 
         if ($request->has('Personal')) {
             $raisers->nama_instansi = "-";
@@ -143,7 +161,9 @@ class AdminController extends Controller
     public function deleteRaiser($id)
     {
         $raisers = Raiser::findOrFail($id);
+        $users = User::where('username', '=', $raisers->username_pic)->first();
         $raisers->delete();
+        $users->delete();
         $raiser = Raiser::all();
         return redirect()->route('raiser.listRaiser', ['raiser' => $raiser]);
     }

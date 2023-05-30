@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Login User</title>
+    <title>Update Donor's Profile</title>
 </head>
 
 <body>
     <div class="flex h-screen h-14 bg-gradient-to-r from-violet-500 to-violet-800">
-        <a href="/" class="py-3 px-5">
+        <a href="/donor/profile" class="py-3 px-5">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                 class="w-8 h-8 text-violet-600">
                 <path
@@ -30,19 +30,35 @@
                                         <img class="mx-auto w-80" src="{{ URL('images/logo.png') }}" alt="logo" />
                                     </div>
                                     <br><br>
-                                    <form action="{{ route('login') }}" method="POST">
+                                    <form action="{{ route('donor.updateProfile', ['id' => $donor->id]) }}"
+                                        method="POST">
                                         @csrf
+                                        @method('PUT')
                                         <div class="relative mb-4" data-te-input-wrapper-init>
-                                            <input type="text" id="UsernameDonor" name="username"
+                                            <input type="text" id="NameDonor" name="NameDonor"
                                                 class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder=" " value="{{$donor->name_donor}}" />
+                                            <label for="NameDonor"
+                                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Name</label>
+                                        </div>
+                                        <div class="relative mb-4" data-te-input-wrapper-init>
+                                            <input type="text" id="UsernameDonor" name="UsernameDonor"
+                                                class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-400 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " value="{{$donor->username_donor}}" readonly />
                                             <label for="UsernameDonor"
                                                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Username</label>
                                         </div>
                                         <div class="relative mb-4" data-te-input-wrapper-init>
-                                            <input type="password" id="PasswordDonor" name="password"
+                                            <input type="email" id="EmailDonor" name="EmailDonor"
                                                 class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                placeholder=" " />
+                                                placeholder=" " value="{{$donor->email_donor}}" />
+                                            <label for="EmailDonor"
+                                                class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Email</label>
+                                        </div>
+                                        <div class="relative mb-4" data-te-input-wrapper-init>
+                                            <input type="password" id="PasswordDonor" name="PasswordDonor"
+                                                class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-400 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                placeholder=" " value="{{$donor->password_donor}}" readonly />
                                             <label for="PasswordDonor"
                                                 class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Password</label>
                                         </div>
@@ -51,14 +67,8 @@
                                                 class="mb-3 inline-block w-full rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                                                 type="submit" data-te-ripple-init data-te-ripple-color="light"
                                                 style="background: linear-gradient(to left, #ee7724, #d8363a);">
-                                                Login
+                                                Update
                                             </button>
-                                            <div class="flex space-x-10">
-                                                <a href="/donor/register">Register</a>
-                                                <!-- <p class="font-bold font-sans text-orange-500">|</p>
-                                                <a href="/raiser/login"
-                                                    class="font-bold font-sans text-orange-500">RAISER</a> -->
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -66,11 +76,11 @@
                             <div class="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
                                 style="background: linear-gradient(to left, #ee7724, #d8363a)">
                                 <div class="m-auto">
-                                    <!-- <h1 class="text-3xl font-light font-sans text-white">
-                                        Welcome to
-                                    </h1> -->
+                                    <h1 class="text-3xl font-light font-sans text-white">
+                                        Update
+                                    </h1>
                                     <h1 class="text-6xl font-bold font-sans text-white">
-                                        WELCOME
+                                        PROFILE.
                                     </h1>
                                 </div>
                             </div>

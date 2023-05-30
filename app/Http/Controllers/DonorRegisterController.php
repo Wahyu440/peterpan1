@@ -48,7 +48,7 @@ class DonorRegisterController extends Controller
         ];
 
         if(Auth::attempt($credentials)){
-            return redirect()->route('donor.dasboard');
+            return redirect()->route('donor.dashboard');
         } else {
             return redirect()->back();
         }

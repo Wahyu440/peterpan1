@@ -56,7 +56,7 @@ class RaiserRegisterController extends Controller
         ];
 
         if(Auth::attempt($credentials)){
-            return redirect()->route('donor.dasboard');
+            return redirect()->route('raiser.dashboard');
         } else {
             return redirect()->back();
         }

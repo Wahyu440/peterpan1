@@ -18,7 +18,7 @@
                     <img src="{{ URL('images/logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
-                    <a href="#"
+                    <a
                         class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2">
                         {{ Auth::user()->name }}</a>
                     <a href="/raiser/logout"
@@ -32,7 +32,7 @@
             <div class="h-full px-3 py-4 overflow-y-auto bg-gray-100">
                 <ul class="space-y-2 font-medium">
                     <li class="rounded-lg" style="background: linear-gradient(to left, #ee7724, #d8363a)">
-                        <a href="#"
+                        <a href="/raiser/dashboard"
                             class="flex items-center p-2 text-white rounded-lg hover:bg-gradient-to-l from-violet-500 to-violet-800 hover:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-6 h-6">
@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="#"
+                        <a href="/raiser/profile"
                             class="flex items-center p-2 text-orange-600 rounded-lg hover:bg-gradient-to-l from-violet-500 to-violet-800 hover:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-6 h-6">
@@ -68,32 +68,40 @@
                 class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
                 style="background: #E57C23;">
                 Add Activity</a>
-            <div class="flex flex-wrap">
-                <div class="max-w-sm rounded overflow-hidden shadow-lg pt-2 bg-[length:200px_100px]">
+            <div class="flex flex-wrap space-x-3">
+                @foreach ($activity as $item)
+                <div class="rounded overflow-hidden shadow-lg pt-2 bg-[length:200px_100px] w-96">
                     <div class="bg-gradient-to-l from-violet-500 to-violet-800 py-1 px-2 flex-row-reverse flex">
-                        <svg class="h-8 w-8 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" />
-                            <circle cx="5" cy="12" r="1" />
-                            <circle cx="12" cy="12" r="1" />
-                            <circle cx="19" cy="12" r="1" />
-                        </svg>
+                        <a href="/raiser/activity/detail/{{$item->id}}">
+                            <svg class="h-8 w-8 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <circle cx="5" cy="12" r="1" />
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="19" cy="12" r="1" />
+                            </svg>
+                        </a>
                     </div>
                     <div class="px-6 py-4 space-y-1 text-center">
-                        <p class="font-bold text-xl mb-2">The Coldest Sunset</p>
-                        <p class="font-semibold text-gray-800 text-base">12-14 Juni 2023</p>
+                        <p class="font-bold text-xl mb-2"
+                            style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{$item->name}}</p>
+                        <p class="font-semibold text-gray-800 text-base">{{ date('j F Y', strtotime($item->start)) }} -
+                            {{ date('j F Y', strtotime($item->end)) }}</p>
                     </div>
                     <div class="px-6 py-4 grid gap-2 grid-cols-2 grid-rows-2">
                         <p class="font-semibold text-gray-600 text-base">Terkumpul :</p>
-                        <p class="font-semibold text-gray-400 text-base">Rp10.000.000</p>
+                        <p class="font-semibold text-gray-400 text-base">
+                            Rp{{ number_format($item->realization, 0, ',', '.') }}</p>
                         <p class="font-semibold text-gray-600 text-base">Target :</p>
-                        <p class="font-semibold text-gray-400 text-base">Rp10.000.000</p>
+                        <p class="font-semibold text-gray-400 text-base">
+                            Rp{{ number_format($item->target, 0, ',', '.') }}</p>
                     </div>
                     <div class="px-1 pt-4 pb-1 flex-row-reverse flex">
                         <span
-                            class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-gradient-to-l from-orange-500 to-orange-700 text-white">#ACARAGREJA</span>
+                            class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-gradient-to-l from-orange-500 to-orange-700 text-white">#{{$item->type}}</span>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>

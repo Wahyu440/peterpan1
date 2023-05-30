@@ -18,8 +18,7 @@
                     <img src="{{ URL('images/logo.png') }}" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
-                    <a href="#"
-                        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2">
+                    <a class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2">
                         {{ Auth::user()->name }}</a>
                     <a href="/admin/logout"
                         class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
@@ -60,21 +59,6 @@
                             <span class="ml-3">Raisers</span>
                         </a>
                     </li>
-                    <!-- <li class="">
-                        <a href="#"
-                            class="flex items-center p-2 text-orange-600 rounded-lg hover:bg-gradient-to-l from-violet-500 to-violet-800 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                class="w-6 h-6">
-                                <path fill-rule="evenodd"
-                                    d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                            </svg>
-                            <span class="ml-3">Donors</span>
-                        </a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -106,9 +90,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Created at
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <!-- <th scope="col" class="px-6 py-3">
 
-                            </th>
+                            </th> -->
                             <th scope="col" class="px-6 py-3">
 
                             </th>
@@ -135,12 +119,12 @@
                             <td class="px-6 py-4">
                                 {{$item->created_at}}
                             </td>
-                            <td class="px-6 py-4">
+                            <!-- <td class="px-6 py-4">
                                 <a href="/admin/raiser/edit/{{$item->id}}"
                                     class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
                                     style="background: #FFBF00;">
                                     Edit</a>
-                            </td>
+                            </td> -->
                             <td class="px-6 py-4">
                                 <form action="{{ route('raiser.deleteRaiser', $item->id)}}" method="POST">
                                     @csrf
