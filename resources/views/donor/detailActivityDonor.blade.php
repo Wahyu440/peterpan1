@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a href="#"
+                        <a href="/donor/donation/list"
                             class="flex items-center p-2 text-orange-600 rounded-lg hover:bg-gradient-to-l from-violet-500 to-violet-800 hover:text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="w-6 h-6">
@@ -86,7 +86,7 @@
         </div>
         <div class="Content px-10 py-10 space-y-2">
             <div class="flex">
-                <a href=""
+                <a href="/donor/donation/form/{{$activity->id}}"
                     class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
                     style="background: #E57C23;">
                     Donate</a>
@@ -109,11 +109,32 @@
                         <div class="md:mx-6 md:p-12">
                             <form>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
+                                    <input type="text" id="Agency" name="Agency"
+                                        class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " value="{{$nama_instansi}}" readonly />
+                                    <label for="Agency"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Agency</label>
+                                </div>
+                                <div class="relative mb-4" data-te-input-wrapper-init>
+                                    <input type="text" id="RaiserName" name="RaiserName"
+                                        class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " value="{{$nama_pic}}" readonly />
+                                    <label for="RaiserName"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Raiser Name</label>
+                                </div>
+                                <div class="relative mb-4" data-te-input-wrapper-init>
+                                    <input type="text" id="RaiserName" name="RaiserName"
+                                        class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                        placeholder=" " value="{{$noTelp}}" readonly />
+                                    <label for="RaiserName"
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Telephone Number</label>
+                                </div>
+                                <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="NameProgram" name="NameProgram"
                                         class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " value="{{$activity->name}}" readonly />
                                     <label for="NameProgram"
-                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Name</label>
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Activity Name</label>
                                 </div>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="Target" name="Target"

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Donor;
+use App\Models\Donation;
 use App\Models\Raiser;
 use App\Models\Activity;
 use App\Models\User;
@@ -17,7 +18,9 @@ class RaiserController extends Controller
     public function dashboard()
     {
         $activities = new Activity;
-        $activities->admin_id = Auth::id();
+        $user = Auth::user(); // Mengambil objek User yang telah login
+        $raiser = Raiser::where('username_pic', $user->username)->first();
+        $activities->admin_id = $raiser->id;
 
         $activity = Activity::where('admin_id', '=', $activities->admin_id)->get();
         return view('raiser.dashboardRaiser', ['activity' => $activity]);
@@ -40,8 +43,10 @@ class RaiserController extends Controller
         ]);
 
         $activities = new Activity;
+        $user = Auth::user(); // Mengambil objek User yang telah login
+        $raiser = Raiser::where('username_pic', $user->username)->first();
 
-        $activities->admin_id = Auth::id();
+        $activities->admin_id = $raiser->id;
         $activities->name = $request->NameProgram;
         $activities->target = $request->Target;
         $activities->type = $request->Type;
@@ -65,6 +70,12 @@ class RaiserController extends Controller
     {
         $activity = Activity::findOrFail($id);
         return view('raiser.detailActivity', ['activity' => $activity]);
+    }
+
+    public function detailActivityDonation($id)
+    {
+        $activity = Activity::findOrFail($id);
+        return view('raiser.detailDonation', ['activity' => $activity]);
     }
 
     public function edit($id)
@@ -115,5 +126,11 @@ class RaiserController extends Controller
         $users->save();
         $raisers->save();
         return redirect()->route('raiser.profile');
+    }
+
+    public function list($id)
+    {
+        $payment = Donation::where('activity_id', $id)->whereNotNull('payment')->paginate(5);
+        return view('raiser.detailDonation', ['payment' => $payment]);
     }
 }

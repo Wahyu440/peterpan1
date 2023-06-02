@@ -65,7 +65,7 @@
         </div>
         <div class="Content px-10 py-10 space-y-2">
             <div class="flex">
-                <a href=""
+                <a href="/raiser/activity/detailDonation/{{$activity->id}}"
                     class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
                     style="background: #E57C23;">
                     Detail Donations</a>

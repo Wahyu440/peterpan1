@@ -59,6 +59,10 @@ Route::group(['middleware' => ['role:0']], function () {
     Route::get('/donor/donation/form/{id}', [DonorController::class,'formDonate'])->name('donor.formDonate');
     Route::post('/donor/donation/donate', [DonorController::class,'donate'])->name('donor.donate');
     Route::get('/donor/activity/detail/{id}', [DonorController::class,'detail'])->name('activity.detail');
+    Route::get('/donor/donation/list', [DonorController::class,'list'])->name('donation.list');
+    Route::delete('/donor/donation/delete/{id}', [DonorController::class,'delete'])->name('donation.delete');
+    Route::get('/donor/donation/upload/{id}', [DonorController::class,'uploadPayment'])->name('donor.uploadPayment');
+    Route::put('/donor/donation/payment/{id}', [DonorController::class,'payment'])->name('donation.payment');
 });
 
 //Raiser
@@ -76,6 +80,7 @@ Route::group(['middleware' => ['role:1']], function () {
     Route::get('/raiser/profile', [RaiserController::class,'profile'])->name('raiser.profile');
     Route::get('/raiser/profile/edit/{id}', [RaiserController::class,'editProfile'])->name('raiser.editProfile');
     Route::put('/raiser/profile/update/{id}', [RaiserController::class,'updateProfile'])->name('raiser.updateProfile');
+    Route::get('/raiser/activity/detailDonation/{id}', [RaiserController::class,'list'])->name('activity.detailDonation');
 });
 
 // Route::get('/admin/login', [AdminLoginController::class,'showLoginForm']);
