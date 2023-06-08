@@ -87,6 +87,9 @@
                     <thead class="text-xs text-white uppercase"
                         style="background: linear-gradient(to left, #ee7724, #d8363a);">
                         <tr>
+                            <th scope="col" class="px-6 py-3">
+
+                            </th>
                             <th scope="col" class="px-6 py-3 text-center">
                                 Activity
                             </th>
@@ -99,14 +102,30 @@
                             <th scope="col" class="px-6 py-3">
 
                             </th>
-                            <th scope="col" class="px-6 py-3">
-
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($donation as $item)
                         <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50">
+                            <td class="px-6 py-4 text-center">
+                                <!-- <a href="/donor/donation/upload/{{ $item->id }}"
+                                    class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
+                                    style="background: #FFBF00;">
+                                    Transaction ID</a> -->
+                                <form action="/donor/donation/payment/{{$item->id}}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button onclick="return confirm('Want to verify this donation?')"
+                                        class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm p-1"
+                                        style="background: #FFBF00;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M4.5 12.75l6 6 9-13.5" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
                             <td class="px-6 py-4 text-center">
                                 {{$item->activity->name}}
                             </td>
@@ -115,12 +134,6 @@
                             </td>
                             <td class="px-6 py-4 text-center">
                                 {{$item->created_at}}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                <a href="/donor/donation/upload/{{ $item->id }}"
-                                    class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
-                                    style="background: #FFBF00;">
-                                    Transaction ID</a>
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <form action="/donor/donation/delete/{{$item->id}}" method="POST">
@@ -136,18 +149,15 @@
                         @endforeach
                     </tbody>
                 </table>
-                <nav class="flex flex-row-reverse items-center justify-between pt-4 px-10 py-5"
-                    aria-label="Table navigation">
-                    <ul class="inline-flex items-center space-x-10">
-                        {{ $donation->links() }}
-                    </ul>
-                </nav>
             </div>
             <div class="overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-left text-gray-500">
                     <thead class="text-xs text-white uppercase"
                         style="background: linear-gradient(to left, #ee7724, #d8363a);">
                         <tr>
+                            <th scope="col" class="px-6 py-3">
+
+                            </th>
                             <th scope="col" class="px-6 py-3 text-center">
                                 Activity
                             </th>
@@ -162,6 +172,18 @@
                     <tbody>
                         @foreach ($payment as $items)
                         <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50">
+                            <td class="px-6 py-4 text-center">
+                                <button
+                                    class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm p-1"
+                                    style="background: #03C988;"
+                                    disabled>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                </button>
+                            </td>
                             <td class="px-6 py-4 text-center">
                                 {{$items->activity->name}}
                             </td>

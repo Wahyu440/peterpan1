@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="Content px-10 py-10 space-y-2">
-            <div class="flex">
+            <div class="flex flex-row-reverse">
                 <a href="/donor/donation/form/{{$activity->id}}"
                     class="text-white dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2"
                     style="background: #E57C23;">
@@ -109,6 +109,23 @@
                         <div class="md:mx-6 md:p-12">
                             <form>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
+                                    <div class="relative h-4 rounded-lg overflow-hidden bg-gray-200 col-span-2">
+                                        @php
+                                            $percentage = ($activity->realization / $activity->target) * 100;
+                                            $color = '';
+                                            
+                                            if ($percentage < 15) {
+                                                $color = 'red';
+                                            } elseif ($percentage < 75) {
+                                                $color = 'yellow';
+                                            } else {
+                                                $color = 'green';
+                                            }
+                                        @endphp
+                                        <div class="absolute top-0 left-0 h-full bg-{{ $color }}-500" style="width: {{ $percentage }}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="Agency" name="Agency"
                                         class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " value="{{$nama_instansi}}" readonly />
@@ -120,21 +137,24 @@
                                         class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " value="{{$nama_pic}}" readonly />
                                     <label for="RaiserName"
-                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Raiser Name</label>
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Raiser
+                                        Name</label>
                                 </div>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="RaiserName" name="RaiserName"
                                         class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " value="{{$noTelp}}" readonly />
                                     <label for="RaiserName"
-                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Telephone Number</label>
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Telephone
+                                        Number</label>
                                 </div>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="NameProgram" name="NameProgram"
                                         class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-700 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder=" " value="{{$activity->name}}" readonly />
                                     <label for="NameProgram"
-                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Activity Name</label>
+                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Activity
+                                        Name</label>
                                 </div>
                                 <div class="relative mb-4" data-te-input-wrapper-init>
                                     <input type="text" id="Target" name="Target"

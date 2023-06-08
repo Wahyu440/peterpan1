@@ -61,7 +61,7 @@ Route::group(['middleware' => ['role:0']], function () {
     Route::get('/donor/activity/detail/{id}', [DonorController::class,'detail'])->name('activity.detail');
     Route::get('/donor/donation/list', [DonorController::class,'list'])->name('donation.list');
     Route::delete('/donor/donation/delete/{id}', [DonorController::class,'delete'])->name('donation.delete');
-    Route::get('/donor/donation/upload/{id}', [DonorController::class,'uploadPayment'])->name('donor.uploadPayment');
+    // Route::get('/donor/donation/upload/{id}', [DonorController::class,'uploadPayment'])->name('donor.uploadPayment');
     Route::put('/donor/donation/payment/{id}', [DonorController::class,'payment'])->name('donation.payment');
 });
 

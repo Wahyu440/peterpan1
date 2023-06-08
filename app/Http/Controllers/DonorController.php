@@ -12,12 +12,13 @@ use App\Models\Donation;
 use App\Models\Activity;
 use App\Models\User;
 use DB;
+use Carbon\Carbon;
 
 class DonorController extends Controller
 {
     public function dashboard()
     {
-        $activity = Activity::all();
+        $activity = Activity::whereDate('end', '>=', Carbon::today())->get();
         return view('donor.dashboardDonor', ['activity' => $activity]);
     }
 
@@ -26,7 +27,7 @@ class DonorController extends Controller
         $activities = new Activity;
         $activities->type = $request->Type;
 
-        $activity = Activity::where('type', '=', $activities->type)->get();
+        $activity = Activity::where('type', '=', $activities->type)->whereDate('end', '>=', Carbon::today())->get();
         return view('donor.dashboardDonor', ['activity' => $activity]);
     }
 
@@ -93,8 +94,8 @@ class DonorController extends Controller
     public function list()
     {
         $user = Auth::user(); // Mengambil objek User yang telah login
-        $donation = Donation::where('donor_username', $user->username)->whereNull('payment')->paginate(3);
-        $payment = Donation::where('donor_username', $user->username)->whereNotNull('payment')->paginate(3);
+        $donation = Donation::where('donor_username', $user->username)->whereNull('payment')->get();
+        $payment = Donation::where('donor_username', $user->username)->whereNotNull('payment')->paginate(5);
         return view('donor.donationDonor', ['donation' => $donation, 'payment' => $payment]);
     }
 
@@ -111,30 +112,38 @@ class DonorController extends Controller
         return view('donor.formUploadPayment', ['donation' => $donation]);
     }
 
-    public function payment(Request $request, $id)
+    public function payment($id)
     {
         $donation = Donation::findOrFail($id);
-        $payment = $request->input('Payment');
-        
         $activity = Activity::findOrFail($donation->activity_id);
         $raiser = Raiser::find($activity->admin_id);
         $noTelp = $raiser->no_telp;
+        $donation->payment = "PAY".$noTelp;
+        $donation->save();
 
+        $activity->total_donor += 1;
+        $activity->realization += $donation->total_donation;
+        $activity->save();
+        return redirect()->route('donation.list');
+        //Old payment
+        // $activity = Activity::findOrFail($donation->activity_id);
+        // $raiser = Raiser::find($activity->admin_id);
+        // $noTelp = $raiser->no_telp;
         // Check if the payment value starts with "pay" and has a length of 28 characters
-        if (strpos($payment, 'PAY'.$noTelp) === 0 && strlen($payment) === 28) {
-            $donation->payment = $payment;
-            $donation->save();
+        // if (strpos($payment, 'PAY'.$noTelp) === 0 && strlen($payment) === 28) {
+        //     $donation->payment = $payment;
+        //     $donation->save();
 
-            $activity = Activity::findOrFail($donation->activity_id);
-            $activity->total_donor += 1;
-            $activity->realization += $donation->total_donation;
-            $activity->save();
+        //     $activity = Activity::findOrFail($donation->activity_id);
+        //     $activity->total_donor += 1;
+        //     $activity->realization += $donation->total_donation;
+        //     $activity->save();
 
-            return redirect()->route('donation.list');
-        } else {
-            // Invalid payment value
-            $errorMessage = 'Invalid Transaction ID';
-            return back()->withErrors($errorMessage);
-        }
+        //     return redirect()->route('donation.list');
+        // } else {
+        //     // Invalid payment value
+        //     $errorMessage = 'Invalid Transaction ID';
+        //     return back()->withErrors($errorMessage);
+        // }
     }
 }

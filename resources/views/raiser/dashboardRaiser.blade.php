@@ -89,21 +89,32 @@
                             {{ date('j F Y', strtotime($item->end)) }}</p>
                     </div>
                     <div class="px-6 py-4 grid gap-2 grid-cols-2 grid-rows-2">
-                        <p class="font-semibold text-gray-600 text-base">Terkumpul :</p>
-                        <p class="font-semibold text-gray-400 text-base">
-                            Rp{{ number_format($item->realization, 0, ',', '.') }}</p>
-                        <p class="font-semibold text-gray-600 text-base">Target :</p>
-                        <p class="font-semibold text-gray-400 text-base">
-                            Rp{{ number_format($item->target, 0, ',', '.') }}</p>
+                        <div class="relative h-4 rounded-lg overflow-hidden bg-gray-200 col-span-2">
+                            @php
+                            $percentage = ($item->realization / $item->target) * 100;
+                            $color = '';
+
+                            if ($percentage < 15) { $color='red' ; } elseif ($percentage < 75) { $color='yellow' ; }
+                                else { $color='green' ; } @endphp <div
+                                class="absolute top-0 left-0 h-full bg-{{ $color }}-500"
+                                style="width: {{ $percentage }}%;">
+                        </div>
                     </div>
-                    <div class="px-1 pt-4 pb-1 flex-row-reverse flex">
-                        <span
-                            class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-gradient-to-l from-orange-500 to-orange-700 text-white">#{{$item->type}}</span>
-                    </div>
+                    <p class="font-semibold text-gray-600 text-base">Terkumpul :</p>
+                    <p class="font-semibold text-gray-400 text-base">
+                        Rp{{ number_format($item->realization, 0, ',', '.') }}</p>
+                    <p class="font-semibold text-gray-600 text-base">Target :</p>
+                    <p class="font-semibold text-gray-400 text-base">
+                        Rp{{ number_format($item->target, 0, ',', '.') }}</p>
                 </div>
-                @endforeach
+                <div class="px-1 pt-4 pb-1 flex-row-reverse flex">
+                    <span
+                        class="inline-block rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2 bg-gradient-to-l from-violet-500 to-violet-800 text-white">#{{$item->type}}</span>
+                </div>
             </div>
+            @endforeach
         </div>
+    </div>
     </div>
 </body>
 

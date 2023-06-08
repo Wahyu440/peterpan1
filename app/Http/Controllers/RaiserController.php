@@ -12,6 +12,8 @@ use App\Models\Raiser;
 use App\Models\Activity;
 use App\Models\User;
 use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class RaiserController extends Controller
 {
@@ -69,13 +71,8 @@ class RaiserController extends Controller
     public function detail($id)
     {
         $activity = Activity::findOrFail($id);
-        return view('raiser.detailActivity', ['activity' => $activity]);
-    }
-
-    public function detailActivityDonation($id)
-    {
-        $activity = Activity::findOrFail($id);
-        return view('raiser.detailDonation', ['activity' => $activity]);
+        $payment = Donation::where('activity_id', $id)->whereNotNull('payment')->paginate(5);
+        return view('raiser.detailActivity', ['activity' => $activity, 'payment' => $payment]);
     }
 
     public function edit($id)
@@ -130,7 +127,12 @@ class RaiserController extends Controller
 
     public function list($id)
     {
-        $payment = Donation::where('activity_id', $id)->whereNotNull('payment')->paginate(5);
-        return view('raiser.detailDonation', ['payment' => $payment]);
+        $activity = Activity::findOrFail($id);
+        $payment = Donation::where('activity_id', $id)->whereNotNull('payment')->get();
+        $now = Carbon::now();
+        $dateTimeFormat = $now->format('Ymd_His');
+        $pdf = PDF::loadView('raiser.detailDonation', ['activity' => $activity,'payment' => $payment]);
+        $fileName = 'RekapData_' . $dateTimeFormat . '.pdf';
+        return $pdf->download($fileName);
     }
 }
