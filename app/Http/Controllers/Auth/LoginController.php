@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
+use App\Models\Donor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -56,24 +57,33 @@ class LoginController extends Controller
         ];
 
         $cekRole = User::where('username', $request->username)->first();
+        $cekActivity = $request->ActivityID;
 
-        if($cekRole->role === 0) {
+        if (!is_null($cekActivity)) {
             if(Auth::attempt($credentials)) {
-                return redirect()->route('donor.dashboard');
-            } else {
-                return redirect()->back();
-            }
-        } else if ($cekRole->role === 1) {
-            if(Auth::attempt($credentials)) {
-                return redirect()->route('raiser.dashboard');
+                return redirect()->route('donor.formDonate', ['id' => $cekActivity]);
             } else {
                 return redirect()->back();
             }
         } else {
-            if(Auth::attempt($credentials)) {
-                return redirect()->route('donor.list');
+            if($cekRole->role === 0) {
+                if(Auth::attempt($credentials)) {
+                    return redirect()->route('donor.dashboard');
+                } else {
+                    return redirect()->back();
+                }
+            } else if ($cekRole->role === 1) {
+                if(Auth::attempt($credentials)) {
+                    return redirect()->route('raiser.dashboard');
+                } else {
+                    return redirect()->back();
+                }
             } else {
-                return redirect()->back();
+                if(Auth::attempt($credentials)) {
+                    return redirect()->route('donor.list');
+                } else {
+                    return redirect()->back();
+                }
             }
         }
 

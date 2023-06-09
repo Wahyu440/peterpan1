@@ -10,6 +10,7 @@ use App\Http\Controllers\DonorRegisterController;
 use App\Http\Controllers\RaiserController;
 use App\Http\Controllers\RaiserLoginController;
 use App\Http\Controllers\RaiserRegisterController;
+use App\Http\Controllers\LandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,10 @@ use App\Http\Controllers\RaiserRegisterController;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('landing');
-})->name('landingPage');
+Route::get('/', [LandingController::class,'home'])->name('landing');
+Route::get('/quick/login/{id}', [LandingController::class,'showLoginForm'])->name('quick.form');
+Route::get('/quick/register/{id}', [LandingController::class,'showRegisterForm']);
+Route::post('/quick/store', [LandingController::class,'store'])->name('quick.register');
 
 Route::get('/user/login', [DonorLoginController::class,'showLoginForm'])->name('donor.login');
 
@@ -46,7 +48,7 @@ Route::group(['middleware' => ['role:2']], function () {
     Route::get('/admin/logout', [AdminLoginController::class,'logout'])->name('admin.logout');
 });
 
-//Donor
+//---------------------------------------------------Donor---------------------------------------------------//
 Route::get('/donor/register', [DonorRegisterController::class,'showRegisterForm']);
 Route::post('/donor/store', [DonorRegisterController::class,'store'])->name('donor.register');
 Route::group(['middleware' => ['role:0']], function () {
@@ -61,11 +63,10 @@ Route::group(['middleware' => ['role:0']], function () {
     Route::get('/donor/activity/detail/{id}', [DonorController::class,'detail'])->name('activity.detail');
     Route::get('/donor/donation/list', [DonorController::class,'list'])->name('donation.list');
     Route::delete('/donor/donation/delete/{id}', [DonorController::class,'delete'])->name('donation.delete');
-    // Route::get('/donor/donation/upload/{id}', [DonorController::class,'uploadPayment'])->name('donor.uploadPayment');
     Route::put('/donor/donation/payment/{id}', [DonorController::class,'payment'])->name('donation.payment');
 });
 
-//Raiser
+//---------------------------------------------------Raiser---------------------------------------------------//
 Route::get('/raiser/register', [RaiserRegisterController::class,'showRegisterForm']);
 Route::post('/raiser/store', [RaiserRegisterController::class,'store'])->name('raiser.register');
 Route::group(['middleware' => ['role:1']], function () {
@@ -92,3 +93,4 @@ Route::group(['middleware' => ['role:1']], function () {
 // Route::put('/admin/donor/update/{id}', [AdminController::class,'update'])->name('donor.update');
 // Route::get('/admin/raiser/edit/{id}', [AdminController::class,'editRaiser'])->name('raiser.editRaiser');
 // Route::put('/admin/raiser/update/{id}', [AdminController::class,'updateRaiser'])->name('raiser.updateRaiser');
+// Route::get('/donor/donation/upload/{id}', [DonorController::class,'uploadPayment'])->name('donor.uploadPayment');

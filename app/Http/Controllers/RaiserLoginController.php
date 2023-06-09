@@ -38,6 +38,6 @@ class RaiserLoginController extends Controller
 
     function logout() {
         Auth::logout();
-        return redirect()->route('landingPage');
+        return redirect()->route('landing');
     }
 }
